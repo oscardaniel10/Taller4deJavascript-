@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Figuras Geométricas</title>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+    <h1>Formulario de Registro de Usuario</h1>
+
+    <form id="registrationForm" onsubmit="return validateForm()">
+      <label for="documentType">Tipo de documento:</label>
+      <select id="documentType" name="documentType" required>
+        <option value="">Seleccione...</option>
+        <option value="dni">DNI</option>
+        <option value="passport">Pasaporte</option>
+        <option value="license">Licencia de conducir</option>
+      </select><br><br>
+  
+      <label for="documentNumber">No. Documento:</label>
+      <input type="text" id="documentNumber" name="documentNumber" required pattern="[0-9]{5,}" title="Debe ser un número de mínimo 5 dígitos"><br><br>
+  
+      <label for="firstName">Nombre:</label>
+      <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z0-9]+" title="Solo se permiten caracteres alfanuméricos"><br><br>
+  
+      <label for="lastName">Apellido:</label>
+      <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z0-9]+" title="Solo se permiten caracteres alfanuméricos"><br><br>
+  
+      <label for="birthdate">Fecha Nacimiento:</label>
+      <input type="date" id="birthdate" name="birthdate" required max="2002-01-01"><br><br>
+  
+      <label for="email">Correo electrónico:</label>
+      <input type="text" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@misena.edu.co" title="Debe ser un correo válido de @misena.edu.co"><br><br>
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$" title="Debe incluir mínimo una letra mayúscula, una letra minúscula, un número, un carácter especial y tener mínimo 10 caracteres"><br><br>
+  
+      <label for="confirmPassword">Comprobar password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+  
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms">Aceptar Términos de uso</label><br><br>
+  
+      <button type="button" onclick="showTermsModal()">Ver Términos de uso</button><br><br>
+  
+      <input type="submit" value="Registrarse">
+    </form>
+  
+    <div id="termsModal" class="modal">
+      <div class="modal-content">
+        <h2>Términos de uso</h2>
+        <p>Aquí van los términos de uso del sitio.</p>
+        <button onclick="closeTermsModal()">Cerrar</button>
+      </div>
+    </div>
+  
+    <script>
+      function showTermsModal() {
+        document.getElementById('termsModal').style.display = 'block';
+      }
+  
+      function closeTermsModal() {
+        document.getElementById('termsModal').style.display = 'none';
+      }
+  
+      function validateForm() {
+        // Validar que el password y su confirmación sean iguales
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+          alert('El password y su confirmación no coinciden.');
+          return false;
+        }
+  
+        // Validar la edad mínima (18 años)
+        var birthdate = new Date(document.getElementById('birthdate').value);
+        var minAgeDate = new Date();
+        minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
+        if (birthdate > minAgeDate) {
+          alert('Debe ser mayor de 18 años para registrarse.');
+          return false;
+        }
+  
+        return true;
+      }
+    </script>
+  <h1>Calculadora de Figuras Geométricas</h1>
+
+  <div class="container">
+    <div class="card" id="circleCard">
+      <h2>Círculo</h2>
+      <button class="btn-perimeter">Perímetro</button>
+      <button class="btn-area">Área</button>
+    </div>
+
+    <div class="card" id="triangleCard">
+      <h2>Triángulo</h2>
+      <button class="btn-perimeter">Perímetro</button>
+      <button class="btn-area">Área</button>
+    </div>
+
+    <div class="card" id="rectangleCard">
+      <h2>Rectángulo</h2>
+      <button class="btn-perimeter">Perímetro</button>
+      <button class="btn-area">Área</button>
+    </div>
+
+    <div class="card" id="squareCard">
+      <h2>Cuadrado</h2>
+      <button class="btn-perimeter">Perímetro</button>
+      <button class="btn-area">Área</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalForm"></div>
+      <button class="btn-calculate">Calcular</button>
+    </div>
+  </div>
+
+  <script src="js/index.js"></script>
+</body>
+</html>
